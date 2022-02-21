@@ -1,0 +1,66 @@
+﻿@model Libro
+
+<h1>Detalles del libro</h1>
+
+<p>Titulo: @Model.Titulo</p>
+<br />
+<p>Editorial: @Model.Editorial</p>
+<br />
+
+<img src="~/images/@Model.Portada" width="250" height="250" />
+<br />
+
+<p>Resumen:</p>
+<br />
+<p>@Model.Resumen</p>
+<hr />
+
+@if (Context.Session.GetObject<List<Libro>>("Productos") != null)
+{
+
+    List<Libro> libros = Context.Session.GetObject<List<Libro>>("Productos");
+
+    foreach (Libro lib in libros)
+    {
+
+        if (lib.IdLibro == Model.IdLibro)
+        {
+
+            <button type="button" name="comprar" id="@Model.IdLibro" class="btn btn-warning" disabled>En el carrito</button>
+        }
+        else
+        {
+            <button type="button" name="comprar" id="@Model.IdLibro" class="btn btn-warning">Comprar</button>
+        }
+
+    }
+
+}
+else
+{
+    <button type="button" name="comprar" id="@Model.IdLibro" class="btn btn-warning">Comprar</button>
+}
+
+@section Scripts{
+    <script>
+    $(document).ready(function () {
+
+        $("button").click(function () {
+
+            var id = $(this).attr("id");
+
+            var url = "@Url.Action("InsertarCompra","Libros")";
+            var data = { id: id };
+
+            $.post(url,data).then(function (data) {
+
+                console.log(data);
+                window.location = "/Libros/Index";
+            });
+        });
+
+    });
+
+    </script>
+
+}

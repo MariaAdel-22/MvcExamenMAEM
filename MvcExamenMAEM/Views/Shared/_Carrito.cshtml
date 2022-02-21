@@ -1,0 +1,34 @@
+﻿<h1>Carrito</h1>
+
+@if (Context.Session.GetString("Productos") != null) {
+
+    List<Libro> libros = Context.Session.GetObject<List<Libro>>("Productos");
+
+<table class="table table-info">
+    <thead>
+        <tr>
+            <th>Titulo</th>
+            <th>Autor</th>
+            <th>Portada</th>
+            <th>Accion</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Libro lib in libros)
+        {
+            <tr>
+
+                <td>@lib.Titulo</td>
+                <td>@lib.Autor</td>
+                <td><img src="~/images/@lib.Portada" width="150" height="150" /></td>
+                <td><a asp-controller="Libros" asp-action="EliminarLibro" asp-route-idLibro="@lib.IdLibro" class="btn btn-success">Quitar Libro</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-controller="Libros" asp-action="CompraFinalizada" class="btn btn-danger">Finalizar Compra</a>
+
+}else{
+    <h1 style="color:red">Aún no has comprado nada...</h1>
+}

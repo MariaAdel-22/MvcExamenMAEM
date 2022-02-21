@@ -1,0 +1,43 @@
+﻿@model List<Libro>
+
+
+@section Scripts{
+
+    <script>
+        $(document).ready(function () {
+
+            $("#cargarVista").load('/Libros/Carrito');
+        });
+
+    </script>
+}
+
+<div id="cargarVista">
+
+</div>
+
+<table class="table table-info">
+    <thead>
+        <tr>
+            <th>Titulo</th>
+            <th>Autor</th>
+            <th>Portada</th>
+            <th>Accion</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Libro lib in Model)
+        {
+            <tr>
+
+                <td>@lib.Titulo</td>
+                <td>@lib.Autor</td>
+                <td><img src="~/images/@lib.Portada" width="150" height="150" /></td>
+                <td><a asp-controller="Libros" asp-action="Detalles" asp-route-idLibro="@lib.IdLibro" class="btn btn-success">Detalles</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+
