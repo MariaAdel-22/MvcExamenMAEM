@@ -114,25 +114,17 @@ namespace PracticaCore2MAEM.Controllers
 
             List<Libro> LibProduct= new List<Libro>();
 
+            Libro li = this.repo.FindLibro(IdLibro);
+
             if (HttpContext.Session.GetObject<List<Libro>>("Productos") != null)
             {
-
-                LibProduct = HttpContext.Session.GetObject<List<Libro>>("Productos");
-
-                Libro li = this.repo.FindLibro(IdLibro);
-
-                foreach (Libro lib in LibProduct) {
-
-                    if (lib.IdLibro.Equals(li.IdLibro)) {
-
-                        LibProduct.Remove(li);
-                        HttpContext.Session.SetObject("Productos", LibProduct);   
-                    }
+                if (HttpContext.Session.GetString("Productos").Contains(li.IdLibro.ToString()) != false)
+                {
+                    LibProduct.Remove(li);
+                    HttpContext.Session.SetObject("Productos", LibProduct);
                 }
-
             }
-
-            return RedirectToAction("Carrito");
+            return RedirectToAction("Index");
         }
 
         [AuthorizeExamen]
@@ -158,8 +150,7 @@ namespace PracticaCore2MAEM.Controllers
 
              List<VistaPedido> pedidos = this.repo.FindPedido(usu.IdUsuario);
 
-             ViewBag.Cantidad = cantidadTotal;
-
+             HttpContext.Session.Remove("Productos");
 
              return View(pedidos);
         }

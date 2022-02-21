@@ -57,14 +57,11 @@ namespace PracticaCore2MAEM.Controllers
             }
             else
             {
-                HttpContext.Session.Remove("Usuario");
                 return RedirectToAction("Login", "Manage");
             }
         }
 
         public IActionResult CerrarSesion() {
-
-            //HttpContext.User.Identity.IsAuthenticated = false;
 
             HttpContext.Session.Remove("Usuario");
 

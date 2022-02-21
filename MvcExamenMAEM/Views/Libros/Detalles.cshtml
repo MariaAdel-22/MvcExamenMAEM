@@ -17,27 +17,16 @@
 
 @if (Context.Session.GetObject<List<Libro>>("Productos") != null)
 {
-
-    List<Libro> libros = Context.Session.GetObject<List<Libro>>("Productos");
-
-    foreach (Libro lib in libros)
+    if (Context.Session.GetString("Productos").Contains(Model.IdLibro.ToString()) == false)
     {
-
-        if (lib.IdLibro == Model.IdLibro)
-        {
-
-            <button type="button" name="comprar" id="@Model.IdLibro" class="btn btn-warning" disabled>En el carrito</button>
-        }
-        else
-        {
-            <button type="button" name="comprar" id="@Model.IdLibro" class="btn btn-warning">Comprar</button>
-        }
-
+    <button type="button" name="comprar" id="@Model.IdLibro" class="btn btn-warning">Comprar</button>
     }
-
+    else
+    {
+        <button type="button" name="comprar" id="@Model.IdLibro" class="btn btn-warning" disabled>En el carrito</button>
+    }
 }
-else
-{
+else { 
     <button type="button" name="comprar" id="@Model.IdLibro" class="btn btn-warning">Comprar</button>
 }
 

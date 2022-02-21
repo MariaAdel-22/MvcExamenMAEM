@@ -1,34 +1,36 @@
-﻿@model List<Pedido>
-
-@{
-
-    int cantidad = int.Parse(ViewBag.Cantidad.ToString());
-}
+﻿@model List<VistaPedido>
 
 <h1>Factura</h1>
-
-<h4>Cantidad Total: @cantidad</h4>
 
 <table class="table table-info">
     <thead>
         <tr>
             <th>Id Pedido:</th>
+            <th>IdUsuario:</th>
+            <th>Nombre:</th>
+            <th>Apellidos:</th>
+            <th>Titulo:</th>
+            <th>Precio:</th>
+            <th>Portada:</th>
             <th>Fecha: </th>
-            <th>Id Libro</th>
-            <th>Cantidad</th>
+            <th>Precio final:</th>
         </tr>
     </thead>
     <tbody>
-        @foreach (Pedido ped in Model)
+        @foreach (VistaPedido ped in Model)
         {
             <tr>
-                <td>@ped.IdPedido</td>
+                <td>@ped.IdVista</td>
+                <td>@ped.IdUsuario</td>
+                <td>@ped.Nombre</td>
+                <td>@ped.Apellidos</td>
+                <td>@ped.Titulo</td>
+                <td>@ped.Precio</td>
+                <td><img src="~/images/@ped.Portada" width="130" height="130"/></td>
                 <td>@ped.Fecha</td>
-                <td>@ped.IdLibro</td>
-                <td>@ped.Cantidad</td>
+                <td>@ped.PrecioFinal</td>
             </tr>
         }
 
     </tbody>
 </table>
-
